@@ -1,0 +1,10 @@
+# 11.19 First discussion
+## Topic:
+restaurant seats waitting assignment system
+
+## Queues and Rules:
+2-people table (for 1-2 people), 4-people table (for 3-4 people), 6-people table (for 5-6 people)
+1. there are 3 queues for 3 kinds of tables
+2. if one kind of tables is not busy, it could start accept the request for other kind
+3. VIPs are able to cut in queues in certain rules ()
+
