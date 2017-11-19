@@ -8,3 +8,9 @@ restaurant seats waitting assignment system
 2. if one kind of tables is not busy, it could start accept the request for other kind
 3. VIPs are able to cut in queues in certain rules ()
 
+#output:
+1. in the progress: each group to which table, and next group
+2. after progress: average waiting time for each group
+
+## To do list:
+1. write the queue class and tables class
