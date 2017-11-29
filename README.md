@@ -11,10 +11,12 @@ This is a simulation system to get :
 - how many groups of customers are remained,
 - and which table does current group of customers is assigned to.
 
-The restaurant has 6 tables for groups of up to two customers, 4 tables for groups of up to four customers, and 2 tables for groups of up to six customers.
+The restaurant has:
+- 6 tables for groups of up to two customers, 
+- 4 tables for groups of up to four customers, 
+- and 2 tables for groups of up to six customers.
 
 Groups would be divided into three queues, based on the number of customers in th groups.
-
 
 
 ### Simulation's variables of uncertainty
