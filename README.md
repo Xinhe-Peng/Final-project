@@ -12,6 +12,8 @@ This is a simulation system to get :
 - and which table does current group of customers is assigned to.
 
 Groups who came first would be served first. (FIFO)
+Groups have to register and wait for being assigned to available tables.
+No reservation.
 
 The restaurant has:
 - 6 tables for groups of up to two customers, 
@@ -24,8 +26,9 @@ Groups would be divided into three queues, based on the number of customers in t
 ### Simulation's variables of uncertainty:
 
 - Time each group of customers would spend
-- The numbers customers in groups:
+- The numbers of customers in groups:
   - minimum:1, maximum:6
+- 
 
 
 ## Instructions on how to use the program:
