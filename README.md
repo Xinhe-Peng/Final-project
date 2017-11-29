@@ -21,10 +21,10 @@ The restaurant has:
 Groups would be divided into three queues, based on the number of customers in th groups.
 
 
-### Simulation's variables of uncertainty
-List and describe your simulation's variables of uncertainty (where you're using pseudo-random number generation). 
-For each such variable, how did you decide the range and which probability distribution to use?  
-Do you think it's a good representation of reality?
+### Simulation's variables of uncertainty:
+
+- Time each group of customers would spend
+
 
 ## Instructions on how to use the program:
 
