@@ -29,7 +29,8 @@ For example, if one VIP group comes, and it should be the seventh in the queue o
 
 ### Simulation's variables of uncertainty:
 
-- Time each group of customers would spend
+- Time (in minutes) each group of customers would spend:
+  - unif(30,150) 
 - The numbers of customers in groups:
   - minimum:1, maximum:6
   and whether this group is the VIP group
