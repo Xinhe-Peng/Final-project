@@ -24,6 +24,8 @@ Groups would be divided into three queues, based on the number of customers in t
 ### Simulation's variables of uncertainty:
 
 - Time each group of customers would spend
+- The numbers customers in groups:
+  - minimum:1, maximum:6
 
 
 ## Instructions on how to use the program:
