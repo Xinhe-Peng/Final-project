@@ -11,6 +11,8 @@ This is a simulation system to get :
 - how many groups of customers are remained,
 - and which table does current group of customers is assigned to.
 
+Groups who came first would be served first. (FIFO)
+
 The restaurant has:
 - 6 tables for groups of up to two customers, 
 - 4 tables for groups of up to four customers, 
