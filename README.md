@@ -16,7 +16,7 @@ Groups have to register and wait for being assigned to available tables.
 No reservation.
 
 The restaurant has:
-- 6 tables for groups of up to two customers (No.1 to N0.6), 
+- 6 tables for groups of up to two customers (No.1 to No.6), 
 - 4 tables for groups of up to four customers (No.7 to No.10), 
 - and 2 tables for groups of up to six customers (No.11 and No.12).
 
