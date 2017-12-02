@@ -33,9 +33,12 @@ For example, if one VIP group comes, and it should be the seventh in the queue o
   - unif(30,150) 
 - The numbers of customers in groups:
   - minimum:1, maximum:6
+  - random
   and whether this group is the VIP group
+  - random
   - the probability that the group is a VIP group is 8%.
-- Registration time
+- Registration time 
+  - pert 
 
 ## Instructions on how to use the program:
 
