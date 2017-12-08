@@ -1,6 +1,8 @@
 # Title: Restaurant Queuing Simulation System
 
-### Team Member(s): Mingwei Gao, Xinhe Peng, Yikai Deng
+## Team Member(s): 
+
+### Mingwei Gao, Xinhe Peng, Yikai Deng
 
 ## Work Allocation Reminder:
 
