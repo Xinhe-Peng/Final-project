@@ -55,4 +55,5 @@ For example, if one VIP group comes, and it should be the seventh in the queue o
 
 
 ## Sources Used:
-
+- Pert Function:
+https://github.com/iSchool-590PR-2017Fall/590PR-examples/blob/master/Prob_Distributions.ipynb
