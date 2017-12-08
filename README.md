@@ -38,7 +38,7 @@ For example, if one VIP group comes, and it should be the seventh in the queue o
   - random
   - the probability that the group is a VIP group is 8%.
 - Registration time 
-  - pert 
+  - pert distribution
 
 ## Instructions on how to use the program:
 
