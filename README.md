@@ -1,8 +1,17 @@
 # Title: Restaurant Queuing Simulation System
 
-## Team Member(s): Mingwei Gao, Xinhe Peng, Yikai Deng
+### Team Member(s): Mingwei Gao, Xinhe Peng, Yikai Deng
 
-# Monte Carlo Simulation Scenario & Purpose:
+## Work Allocation Reminder:
+
+There are some errors in the commit times in contributors page, actually we all committed for a lot. We did this project
+together and our workloads are similar. If there is a gap of commit times among us, it may just happen to let someone
+commit for one change, and we did not count this at first.
+It is great to have each one in the team, we share ideas and discuss together so well, and everyone contribute a lot in
+the project.
+Thank you all, and thank you dear Weible!
+
+## Monte Carlo Simulation Scenario & Purpose:
 
 ### Hypothesis before running the simulation:
 
