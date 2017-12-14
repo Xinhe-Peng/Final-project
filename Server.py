@@ -6,14 +6,13 @@ def mod_pert_random(low, likely, high, confidence=4, samples=30):
     distribution.
 
     :param low: The lowest value expected as possible.
-
     :param likely: The 'most likely' value, statistically, the mode.
     :param high: The highest value expected as possible.
     :param confidence: This is typically called 'lambda' in literature
                         about the Modified PERT distribution. The value
                         4 here matches the standard PERT curve. Higher
                         values indicate higher confidence in the mode.
-
+    :param samples: The amount of number to generate, default value is 30.
     Formulas from "Modified Pert Simulation" by Paulo Buchsbaum.
     """
     # Check minimum & maximum confidence levels to allow:
@@ -124,6 +123,20 @@ class Group:
 
 
 def tablesSetting(number_tables_2, number_tables_4, number_tables_6):
+    """
+
+    :param number_tables_2: number of tables for groups with one or two customers. (6)
+    :param number_tables_4: number of tables for groups with three or four customers. (4)
+    :param number_tables_6: number of tables for groups with five or six customers. (2)
+    :return: three lists, each for one type of tables, and the elements in every list are Table Objects.
+    >>> t2,t4,t6 = tablesSetting(6,4,2)
+    >>> len(t2)
+    6
+    >>> len(t4)
+    4
+    >>> len(t6)
+    2
+    """
     table_2_list = []
     table_4_list = []
     table_6_list = []
@@ -152,6 +165,15 @@ def TableFinish(current_time, nextGroup_endTime, table_type):
 
 
 def simulation(current_time, table, queue, total_time, total_timeR, nextGroup_endTime):
+    """
+    Simulation at one specific time point (current_time)
+    :param current_time: time point, at which current simulation is running.
+    :param table:
+    :param queue: queue for groups
+    :param total_time:
+    :param total_timeR: list, storing waiting time for each group served or is being served
+    :param nextGroup_endTime:
+    """
     TableFinish(current_time, nextGroup_endTime, table)
 
     for t in table:
@@ -187,8 +209,12 @@ def simulation(current_time, table, queue, total_time, total_timeR, nextGroup_en
 
 
 def generation(Duration, amount):
-    # Generate group sizes, the total group number is "amount"
-    # the number of people in each group is between 1 and 6
+    """
+
+    :param Duration:
+    :param amount:
+    """
+    # Generate group sizes, the total group number is "amount"， the number of people in each group is between 1 and 6
     size = np.random.randint(1, 7, amount)
     # Generate vip situation, based on the probability of 8%
     vip = []
