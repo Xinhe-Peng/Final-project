@@ -4,7 +4,6 @@ import numpy as np
 def mod_pert_random(low, likely, high, confidence=4, samples=30):
     """Produce random numbers according to the 'Modified PERT'
     distribution.
-
     :param low: The lowest value expected as possible.
     :param likely: The 'most likely' value, statistically, the mode.
     :param high: The highest value expected as possible.
@@ -34,9 +33,17 @@ class Queue:
         self.groups = []
 
     def queue_size(self):
+        """
+        Get the length of queue, namely, the number of groups currently waiting
+        :return: int, number of groups waiting in queue
+        """
         return len(self.groups)
 
     def isEmpty(self):
+        """
+        Whether there is still group waiting
+        :return: True/False
+        """
         if len(self.groups) > 0:
             return False
         else:
@@ -89,6 +96,10 @@ class Queue:
             self.groups.insert(0, group)
 
     def del_queue(self):  # delete last=delete first come group
+        """
+        Pop the head (index = length of queue -1 ) of queue
+        :return: Object Group
+        """
         return self.groups.pop()
 
 
@@ -96,7 +107,6 @@ class Table:
     def __init__(self, num, size):
         self.num = num  # No. of the table
         self.size = size  # Size of the table: for group of up to 2, 4 or 6.
-
         self.currentGroup = None  # Is the table occupied or not.
 
     def busy(self):
@@ -108,7 +118,10 @@ class Table:
     def startNext(self, newGroup):
         self.currentGroup = newGroup
 
-    def cleanTable(self):  # when one group finish their meal, set their table's current group to none
+    def cleanTable(self):
+        """
+        When one group finish their meal, set their table's current group to none
+        """
         self.currentGroup = None
 
     def get_num(self):
@@ -121,13 +134,23 @@ class Group:
         self.size = size  # randomly define size from 1 - 6
         self.vip = vip  # Whether the group is a vip group
         self.table = None  # Which table the group will be assigned to
-        self.timeRequest = mod_pert_random(0, 45, 120, samples=1).astype(int)  # How long will the group spend
+        # How long will the group spend on the table
+        if (size == 1) or (size == 2):
+            self.timeRequest = mod_pert_random(0, 40, 90, samples=1).astype(int)
+        elif (size == 3) or (size == 4):
+            self.timeRequest = mod_pert_random(45,75,120, samples=1).astype(int)
+        elif (size == 5) or (size == 6):
+            self.timeRequest = mod_pert_random(60,100,150, samples=1).astype(int)
         self.groupID = groupID
 
     def get_groupID(self):
         return self.groupID
 
     def get_stamp(self):
+        """
+        Get the registration time of the group
+        :return: int, time point when the group came
+        """
         return self.timestamp
 
     def get_size(self):
@@ -153,7 +176,7 @@ class Group:
 
 def tablesSetting(number_tables_2, number_tables_4, number_tables_6):
     """
-
+    Initialize tables
     :param number_tables_2: number of tables for groups with one or two customers. (6)
     :param number_tables_4: number of tables for groups with three or four customers. (4)
     :param number_tables_6: number of tables for groups with five or six customers. (2)
@@ -182,6 +205,13 @@ def tablesSetting(number_tables_2, number_tables_4, number_tables_6):
 
 
 def TableFinish(current_time, nextGroup_endTime, table_type):
+    """
+    Clean the table when the group on it finished the meal
+    :param current_time: current time point
+    :param nextGroup_endTime: dict, {No. of the table: the ending time point, of the current group with it, for the table}
+    :param table_type: list, whose element is Table objects
+    :return None
+    """
     if (current_time in nextGroup_endTime.values()):
         for n in list(nextGroup_endTime.keys()):
             if current_time == int(nextGroup_endTime[n]):
@@ -193,15 +223,15 @@ def TableFinish(current_time, nextGroup_endTime, table_type):
                     table_type[n-10].cleanTable()
 
 
-def simulation(current_time, table, queue, total_time, total_timeR, nextGroup_endTime):
+def simulation(current_time, table, total_time, queue, total_timeR, nextGroup_endTime):
     """
     Simulation at one specific time point (current_time)
     :param current_time: time point, at which current simulation is running.
-    :param table:
+    :param table: list, the elements in which are Table Objects.
     :param queue: queue for groups
-    :param total_time:
+    :param total_time: Duration
     :param total_timeR: list, storing waiting time for each group served or is being served
-    :param nextGroup_endTime:
+    :param nextGroup_endTime: dict, {No. of the table: the ending time point, of the current group with it, for the table}
     """
     TableFinish(current_time, nextGroup_endTime, table)
 
@@ -209,22 +239,19 @@ def simulation(current_time, table, queue, total_time, total_timeR, nextGroup_en
         if (t.busy() == False) and (not queue.isEmpty()):
             nextGroup = queue.del_queue()
             t.startNext(nextGroup)
-            print('Group No.', nextGroup.get_groupID(), 'will be assigned to Table', t.get_num(), '.\n'
-                                                                                                  'Their waiting time is',
-                  nextGroup.wait_time(current_time), 'minute(s).\n')
+            print('Group No.', nextGroup.get_groupID(), 'will be assigned to Table', t.get_num(), '.\n', 'Their waiting time is',nextGroup.wait_time(current_time), 'minute(s).\n')
             # Update the ending time for tables
             nextGroup_endTime[t.get_num()] = current_time + nextGroup.get_time_request() + 2
             total_timeR.append(int(nextGroup.get_time_request()) + 2)
 
-            # Simulation duartion is done, for groups who are not assigned
-    if current_time == total_time - 1:  # total_time: Duration
+    # Simulation duartion is done, for groups who are not assigned
+    if current_time == total_time- 1:
         at_least_waittime = []
         for i in range(queue.queue_size()):
             if len(nextGroup_endTime) > 0:
                 next_finish_time = min(nextGroup_endTime.values())
                 next_finish_table = min(nextGroup_endTime, key=nextGroup_endTime.get)
                 unpro_next = queue.del_queue()
-
                 print('Group', unpro_next.get_groupID(), 'needs to wait',
                       int(unpro_next.wait_time(next_finish_time)), 'minute(s) to be assigned.')
                 at_least_waittime.append(int(unpro_next.wait_time(next_finish_time)))
@@ -234,14 +261,13 @@ def simulation(current_time, table, queue, total_time, total_timeR, nextGroup_en
                 print('There are still', i, 'Groups in front of Group No.',
                       unpro_next.get_groupID(), 'they need to wait at least', max(at_least_waittime),
                       'minute(s) to be assigned.')
-        # avg_timeR = sum(total_timeR)/len(total_timeR)
 
 
 def generation(Duration, amount):
     """
-
-    :param Duration:
-    :param amount:
+    Generating the data for groups, and run the simulation
+    :param Duration: Total length of time the simulation would run
+    :param amount: Estimated number of groups would come
     """
     # Generate group sizes, the total group number is "amount"， the number of people in each group is between 1 and 6
     size = np.random.randint(1, 7, amount)
@@ -275,9 +301,7 @@ def generation(Duration, amount):
     groupNumb = 0  # all group have their unique ID
 
     for i in range(Duration):
-        # print(i,'/n')
         while i in timestamp_list:
-            # print(size[counter],'**')
             if size[counter] == 1 or size[counter] == 2:
                 queue_2.add_queue(Group(i, 2, vip[counter], groupNumb))
                 counter += 1
@@ -293,9 +317,9 @@ def generation(Duration, amount):
             timestamp_list.remove(i)  # Deal with the situation that several groups arrive at the same time point
 
         # Run the simulation
-        simulation(i, table_2, queue_2, Duration, total_timeR_2, nextGroup_endTime_2)
-        simulation(i, table_4, queue_4, Duration, total_timeR_4, nextGroup_endTime_4)
-        simulation(i, table_6, queue_6, Duration, total_timeR_6, nextGroup_endTime_6)
+        simulation(i, table_2, Duration, queue_2, total_timeR_2, nextGroup_endTime_2)
+        simulation(i, table_4, Duration, queue_4, total_timeR_4, nextGroup_endTime_4)
+        simulation(i, table_6, Duration, queue_6, total_timeR_6, nextGroup_endTime_6)
 
         # Summary
         if i == Duration-1:
