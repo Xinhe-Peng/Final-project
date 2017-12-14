@@ -242,6 +242,14 @@ def generation(Duration, amount):
         simulation(i, table_4, queue_4, Duration, total_timeR_4, nextGroup_endTime_4)
         simulation(i, table_6, queue_6, Duration, total_timeR_6, nextGroup_endTime_6)
 
+        # Summary
+        if i == Duration-1:
+            print("Total groups served (groups who finished their meal or on the table currently):",
+                  len(total_timeR_2)+len(total_timeR_4)+len(total_timeR_6))
+            avg=(sum(total_timeR_2)+sum(total_timeR_4)+sum(total_timeR_6))/(len(total_timeR_2)+len(total_timeR_4)+len(total_timeR_6))
+            print('Average waiting time for groups served: {0:.2f}'.format(avg), "minute(s)")
+
+
 def client():
     print('Welcome to Restaurant Queuing Simulation System!')
     print('Please enter the total time (integer) you want for simulation:')
