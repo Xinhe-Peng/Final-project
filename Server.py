@@ -44,6 +44,27 @@ class Queue:
             return True
 
     def add_queue(self, group):
+        """
+        Add the newly come group into queue properly
+        :param group: the group watiing for entering into the queue
+        >>> g0=Group(12,2,False,0)
+        >>> q2=Queue()
+        >>> q2.add_queue(g0)
+        >>> len(q2.groups) # Test whether group is correctly added
+        1
+        >>> g1=Group(14,1,True,1)
+        >>> q2.add_queue(g1)
+        >>> q2.groups[1].get_groupID() # Test whether vip would become the first
+        0
+        >>> g2=Group(20,2,False,2)
+        >>> q2.add_queue(g2)
+        >>> g3=Group(30,1,True,3)
+        >>> q2.add_queue(g3)
+        >>> q2.groups[0].get_groupID() # Test whether vip skip the queue properly
+        2
+        >>> q2.groups[1].get_groupID()
+        3
+        """
         if group.get_vip():  # If current group is a VIP group, move it forward by four groups,
             enterQueue = False
             if len(self.groups) >= 4:
@@ -113,6 +134,14 @@ class Group:
         return self.size
 
     def wait_time(self, current_time):
+        """
+        Calculate the waiting time for the group
+        :param current_time: current time point
+        :return: waiting time for current group
+        >>> g0=Group(20,2,False,0)
+        >>> g0.wait_time(71)
+        51
+        """
         return current_time - self.timestamp
 
     def get_vip(self):
