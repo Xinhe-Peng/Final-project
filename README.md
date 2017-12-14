@@ -53,6 +53,7 @@ For example, if one VIP group comes, and it should be the seventh in the queue o
 
 ## Instructions on how to use the program:
 
+Run the "Server.py" directly, and follow the instruction.
 
 ## Sources Used:
 - Pert Function:
